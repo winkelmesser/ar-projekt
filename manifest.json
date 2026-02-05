@@ -3,7 +3,7 @@
   "name": "Mein Augmented Reality Projekt",
   "icons": [
     {
-      "src": "assets/icon-192.png",
+      "src": "./assets/icon-192.png",
       "type": "image/png",
       "sizes": "192x192"
     }

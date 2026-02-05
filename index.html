@@ -6,10 +6,20 @@
     <title>WebAR - Color Changer PWA</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
 </head>
 
 <body style="margin: 0; overflow: hidden;">
+    <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <button id="start-btn" style="padding: 20px 40px; font-size: 20px; background: #ff004c; color: white; border: none; border-radius: 10px;">AR Projekt starten</button>
+        <p style="margin-top: 20px; font-family: sans-serif;">(Bitte Kamera-Zugriff erlauben)</p>
+    </div>
+
+<style>
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
+    
+    
     <a-scene 
     embedded 
     vr-mode-ui="enabled: false"
@@ -17,7 +27,7 @@
     renderer="antialias: false; precision: medium; logarithmicDepthBuffer: true;">
         
         <a-assets>
-            <a-asset-item id="meinModell" src="assets/duck.glb"></a-asset-item>
+            <a-asset-item id="meinModell" src="./assets/Duck.glb"></a-asset-item>
         </a-assets>
 
         <a-marker preset="hiro">
@@ -45,6 +55,16 @@
     const ente = document.querySelector('#ente');
     const btn = document.querySelector('#colorBtn');
 
+    window.addEventListener('arjs-video-loaded', () => {
+     document.getElementById('loading-screen').style.display = 'none';
+    });
+
+    const startBtn = document.querySelector('#start-btn');
+    startBtn.addEventListener('click', () => {
+        document.getElementById('loading-screen').style.display = 'none';
+        // AR.js merkt jetzt, dass der Nutzer bereit ist
+    });
+    
     function changeColor() {
         const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
         const mesh = ente.getObject3D('mesh');
@@ -57,6 +77,7 @@
         }
     }
 
+    
     // Jetzt reagiert die Ente auf den Klick im 3D-Raum UND auf den Button
     ente.addEventListener('click', changeColor);
     btn.addEventListener('click', changeColor);
@@ -64,7 +85,7 @@
     // Service Worker Registrierung (PWA Support)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js');
+            navigator.serviceWorker.register('./sw.js');
         });
 }
     </script>
