@@ -1,62 +1,26 @@
-body { 
-    margin: 0; 
-    overflow: hidden; 
-    font-family: 'Segoe UI', sans-serif; 
-}
-
 #progress-ui {
-    position: fixed; 
-    top: env(safe-area-inset-top, 20px); /* Berücksichtigt Notch bei iPhones */
-    left: 50%; 
-    transform: translateX(-50%);
-    z-index: 1000; 
-    background: rgba(0,0,0,0.8); 
-    color: white;
-    padding: 10px 25px; 
-    border-radius: 30px; 
-    font-size: 16px;
-    border: 2px solid #ff004c;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    z-index: 1000; background: rgba(0,0,0,0.85); color: white;
+    padding: 10px 25px; border-radius: 25px; border: 2px solid #ff004c;
 }
 
 #actionBtn {
-    position: fixed; 
-    bottom: calc(env(safe-area-inset-bottom, 20px) + 20px); 
-    left: 50%; 
-    transform: translateX(-50%);
-    padding: 18px 45px; 
-    background: #ff004c; 
-    color: white;
-    border: none; 
-    border-radius: 50px; 
-    font-weight: bold; 
-    font-size: 18px; 
-    z-index: 1000; 
-    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-    transition: all 0.3s ease;
-}
-
-#actionBtn:active {
-    transform: translateX(-50%) scale(0.95);
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    padding: 15px 40px; background: #ff004c; color: white;
+    border: none; border-radius: 50px; font-weight: bold; font-size: 18px;
+    z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
 #hint-box {
-    position: fixed; 
-    bottom: 120px; 
-    width: 85%; 
-    left: 7.5%;
-    background: white; 
-    padding: 15px; 
-    border-radius: 15px;
-    text-align: center; 
-    display: none; 
-    z-index: 1000;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: all 0.5s ease;
-    animation: fadeIn 0.5s;
+    position: fixed; bottom: 110px; width: 85%; left: 7.5%;
+    background: white; padding: 15px; border-radius: 15px;
+    text-align: center; z-index: 1000; transition: all 0.3s ease;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px) translateX(-50%); }
-    to { opacity: 1; transform: translateY(0) translateX(-50%); }
+/* Spezialklasse für Hinweise, wenn der Marker aktiv ist */
+.action-hint {
+    background: #ffeff2 !important;
+    border: 2px solid #ff004c;
+    font-weight: bold;
+    transform: scale(1.05);
 }

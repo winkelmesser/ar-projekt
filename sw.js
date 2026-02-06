@@ -6,7 +6,7 @@ const urlsToCache = [
   './sw.js',
   './assets/Duck.glb',
   './assets/Sword.glb',
-  './assets/Chest Gold.glb',
+  './assets/ChestGold.glb',
   './assets/icon-192.png',
   './css/styles.css',
   './js/app.js',
