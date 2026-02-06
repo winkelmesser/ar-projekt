@@ -14,9 +14,10 @@
 </head>
 
 <body>
-    <div id="progress-ui">Gefunden: <span id="found-count">0</span> / 3</div>
-    <div id="hint-box">Lade AR...</div>
-    <button id="actionBtn">Suche Station 1</button>
+
+    <div id="ui-header">
+        Scanner bereit - Finde die Marker!
+    </div>
 
     <a-scene embedded vr-mode-ui="enabled: false"
         arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
@@ -24,26 +25,20 @@
 
         <a-assets>
             <a-asset-item id="enteModell" src="./assets/Duck.glb"></a-asset-item>
-        </a-assets>
-
-        <a-marker type="barcode" value="5" id="marker1">
-            <a-entity id="objekt1" class="clickable" gltf-model="#enteModell" scale="1 1 1" position="0 0.5 0"></a-entity>
-        </a-marker>
-
-        <a-assets>
             <a-asset-item id="SchwertModell" src="./assets/Sword.glb"></a-asset-item>
-        </a-assets>
-
-        <a-marker type="barcode" value="10" id="marker2">
-            <a-entity id="objekt2" class="clickable" gltf-model="#SchwertModell" scale="1 1 1" position="0 0.5 0"></a-entity>
-        </a-marker>
-
-        <a-assets>
             <a-asset-item id="ChestGoldModell" src="./assets/ChestGold.glb"></a-asset-item>
         </a-assets>
 
+        <a-marker type="barcode" value="5" id="marker1">
+            <a-entity id="objekt1" class="clickable" gltf-model="#enteModell" scale="1 1 1" position="0 0.5 0" rotation="0 45 0"></a-entity>
+        </a-marker>
+
+        <a-marker type="barcode" value="10" id="marker2">
+            <a-entity id="objekt2" class="clickable" gltf-model="#SchwertModell" scale="1 1 1" position="0 0.5 0" rotation="0 45 0"></a-entity>
+        </a-marker>
+
         <a-marker type="barcode" value="15" id="marker3">
-            <a-entity id="objekt3" class="clickable" gltf-model="#ChestGoldModell" scale="1 1 1" position="0 0.5 0"></a-entity>
+            <a-entity id="objekt3" class="clickable" gltf-model="#ChestGoldModell" scale="1 1 1" position="0 0.5 0" rotation="0 45 0"></a-entity>
         </a-marker>
 
         <a-entity camera></a-entity>
