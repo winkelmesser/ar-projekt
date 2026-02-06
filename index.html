@@ -1,43 +1,24 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <title>Lübeck Schatzsuche AR</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <meta charset="utf-8">
+    <title>Schatzsuche Safe-Mode</title>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    <link rel="manifest" href="./manifest.json">
-    
+
     <style>
-        /* Das Overlay für die Hinweise */
-        #clue-overlay {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 30%;
-            background: rgba(0,0,0,0.8); color: white; display: none;
-            flex-direction: column; justify-content: center; align-items: center;
-            padding: 20px; box-sizing: border-box; text-align: center;
-            border-top: 3px solid #ff004c; z-index: 999;
-        }
-        #clue-text { font-size: 1.2em; margin-bottom: 15px; }
-        #close-btn { padding: 10px 20px; background: #ff004c; color: white; border: none; border-radius: 5px; }
-        
-        /* Ladebildschirm */
         .arjs-loader {
             height: 100%; width: 100%; position: absolute; top: 0; left: 0;
-            background-color: rgba(0, 0, 0, 0.8); z-index: 9999; display: flex;
-            justify-content: center; align-items: center;
-        }
-        .arjs-loader div {
-            text-align: center; font-size: 1.25em; color: white;
+            background-color: rgba(0, 0, 0, 0.8); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-family: sans-serif; text-align: center;
         }
     </style>
 </head>
 
-<body style="margin: 0; overflow: hidden;">
-    <div class="arjs-loader"><div>Lade Schatzsuche...<br>(Das kann dauern)</div></div>
-
-    <div id="clue-overlay">
-        <div id="clue-text">Hier steht gleich der Hinweis.</div>
-        <button id="close-btn">Verstanden</button>
+<body style="margin: 0px; overflow: hidden;">
+    <div class="arjs-loader" id="loader">
+        <div>Suche Dateien...<br>Falls dies länger als 30 Sek. dauert,<br>stimmt der Pfad nicht.</div>
     </div>
 
     <a-scene
@@ -46,56 +27,40 @@
         embedded
         arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
 
-        <a-assets>
-             <a-asset-item id="schatzModell" src="./assets/Duck.glb"></a-asset-item>
-        </a-assets>
-
-
         <a-nft
             type="nft"
-            url="./assets/NFT-Marker/Marker_1" 
-            smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
+            url="./assets/NFT-Marker/Marker_1"
+            smooth="true"
+            smoothCount="10"
+            smoothTolerance=".01"
+            smoothThreshold="5">
             
             <a-entity
-                id="station1-objekt"
-                gltf-model="#schatzModell"
-                scale="0.5 0.5 0.5"
-                position="0 0 0"
-                class="clickable"
-                animation="property: scale; to: 0.55 0.55 0.55; dir: alternate; loop: true; dur: 1000">
+                gltf-model="url(./assets/Duck.glb)"
+                scale="5 5 5"
+                position="50 150 -100"
+                rotation="-90 0 0">
             </a-entity>
         </a-nft>
-        
-        <a-entity camera cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-entity>
+
+        <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-        // --- Die Logik für die Schatzsuche ---
-
-        const overlay = document.getElementById('clue-overlay');
-        const clueText = document.getElementById('clue-text');
-        const closeBtn = document.getElementById('close-btn');
-        const station1Obj = document.getElementById('station1-objekt');
-
-        // Wenn man auf das 3D-Objekt klickt
-        station1Obj.addEventListener('click', function() {
-            // 1. Text setzen
-            clueText.innerHTML = "🎉 <b>Station 1 gefunden!</b><br>Der nächste Hinweis verbirgt sich dort, wo in Lübeck das süßeste Gold gemacht wird.";
-            // 2. Overlay anzeigen
-            overlay.style.display = 'flex';
+        // Prüfen, ob der Marker geladen wurde
+        window.addEventListener('nft-image-loaded', (e) => {
+            console.log("Marker-Bild wurde geladen!");
         });
 
-        // Overlay schließen
-        closeBtn.addEventListener('click', function() {
-            overlay.style.display = 'none';
+        window.addEventListener('arjs-nft-loaded', (e) => {
+            console.log("NFT-Dateien erfolgreich geladen!");
+            document.getElementById('loader').style.display = 'none';
         });
 
-        // PWA Registrierung (bleibt gleich)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js');
-            });
-        }
+        // Falls die Kamera extrem langsam ist, reduzieren wir die Auflösung im Hintergrund
+        window.addEventListener('camera-init', (data) => {
+            console.log('Kamera gestartet');
+        });
     </script>
 </body>
 </html>
