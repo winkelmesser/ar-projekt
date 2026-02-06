@@ -6,7 +6,6 @@ const urlsToCache = [
   './sw.js',
   './assets/Duck.glb',
   './assets/icon-192.png',
-  './assets/markers/Marker_1.patt',
   'https://aframe.io/releases/1.3.0/aframe.min.js',
   'https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'
 ];
