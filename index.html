@@ -23,20 +23,28 @@
         cursor="rayOrigin: mouse" raycaster="objects: .clickable">
 
         <a-assets>
-            <a-asset-item id="enteModell" src="./assets/duck.glb"></a-asset-item>
+            <a-asset-item id="enteModell" src="./assets/Duck.glb"></a-asset-item>
         </a-assets>
 
         <a-marker type="barcode" value="5" id="marker1">
             <a-entity id="objekt1" class="clickable" gltf-model="#enteModell" scale="1 1 1" position="0 0.5 0"></a-entity>
         </a-marker>
 
+        <a-assets>
+            <a-asset-item id="SchwertModell" src="./assets/Sword.glb"></a-asset-item>
+        </a-assets>
+
         <a-marker type="barcode" value="10" id="marker2">
-            <a-entity id="objekt2" class="clickable" gltf-model="#enteModell" scale="1 1 1" position="0 0.5 0"
+            <a-entity id="objekt2" class="clickable" gltf-model="#SchwertModell" scale="1 1 1" position="0 0.5 0"
                 animation__open="property: rotation; to: 0 360 0; dur: 1000; startEvents: click-event"></a-entity>
         </a-marker>
 
+        <a-assets>
+            <a-asset-item id="ChestGoldModell" src="./assets/Chest Gold.glb"></a-asset-item>
+        </a-assets>
+
         <a-marker type="barcode" value="15" id="marker3">
-            <a-entity id="objekt3" class="clickable" gltf-model="#enteModell" scale="1 1 1" position="0 0.5 0"></a-entity>
+            <a-entity id="objekt3" class="clickable" gltf-model="#ChestGoldModell" scale="1 1 1" position="0 0.5 0"></a-entity>
         </a-marker>
 
         <a-entity camera></a-entity>
